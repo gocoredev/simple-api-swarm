@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
   api:
+    image: hiboux/simple-api
     build:
       context: .
       dockerfile: Dockerfile
