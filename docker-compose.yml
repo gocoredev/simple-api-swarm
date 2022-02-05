@@ -24,9 +24,6 @@ services:
         - "traefik.http.services.myapp.loadbalancer.healthcheck.interval=100ms"
         - "traefik.http.services.myapp.loadbalancer.healthcheck.timeout=75ms"
         - "traefik.http.services.myapp.loadbalancer.healthcheck.scheme=http"
-      placement:
-        constraints:
-          - node.role == worker
       mode: replicated
       replicas: 5
       restart_policy:
