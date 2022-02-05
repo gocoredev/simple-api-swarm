@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: yarn start
+    image: hiboux/simple-api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV: true
+    ports:
+      - 5000
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.simple-fe.rule=Host(`simple-api.cluster.hiboux.me`)"
+      - "traefik.http.routers.simple-fe.entrypoints=websecure"
+      - "traefik.http.routers.simple-fe.tls.certresolver=letsencrypt"
+    deploy:
+      replicas: 5
+      restart_policy:
+        max_attempts: 3
+        condition: on-failure
+      update_config:
+        parallelism: 3
+        delay: 10s
+    volumes:
+      - ./:/code
