@@ -14,12 +14,12 @@ services:
       - traefik-public
       - backend
     labels:
+      - "traefik.constraint-label=traefik-public"
+      - "traefik.docker.network=traefik-public"
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik-public-http.rule=Host(`simple-api.cluster.hiboux.me`)"
-      - "traefik.http.routers.traefik-public-https.rule=Host(`simple-api.cluster.hiboux.me`)"
-      - "traefik.http.routers.traefik-public-http.entrypoints=http"
-      - "traefik.http.routers.traefik-public-http.entrypoints=https"
-      - "traefik.http.routers.traefik-public-https.tls.certresolver=le"
+      - "traefik.constraint-label-stack=${TRAEFIK_TAG?Variable not set}"
+      - "traefik.http.routers.${STACK_NAME?Variable not set}-api.rule=Host(`simple-api.cluster.hiboux.me`)"
+      - "traefik.http.services.${STACK_NAME?Variable not set}-api.loadbalancer.server.port=5000"
     deploy:
       replicas: 5
       restart_policy:
