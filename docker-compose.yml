@@ -13,17 +13,20 @@ services:
     networks:
       - traefik-public
       - backend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.myapp.rule=Host(`simple-api.cluster.hiboux.me`)"
-      - "traefik.http.routers.myapp.tls.certresolver=le"
-      - "traefik.http.services.myapp.loadbalancer.server.port=80"
-      - "traefik.http.services.myapp.loadbalancer.passhostheader=true"
-      - "traefik.http.services.myapp.loadbalancer.healthcheck.path=/healthcheck"
-      - "traefik.http.services.myapp.loadbalancer.healthcheck.interval=100ms"
-      - "traefik.http.services.myapp.loadbalancer.healthcheck.timeout=75ms"
-      - "traefik.http.services.myapp.loadbalancer.healthcheck.scheme=http"
     deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.myapp.rule=Host(`simple-api.cluster.hiboux.me`)"
+        - "traefik.http.routers.myapp.tls.certresolver=le"
+        - "traefik.http.services.myapp.loadbalancer.server.port=80"
+        - "traefik.http.services.myapp.loadbalancer.passhostheader=true"
+        - "traefik.http.services.myapp.loadbalancer.healthcheck.path=/healthcheck"
+        - "traefik.http.services.myapp.loadbalancer.healthcheck.interval=100ms"
+        - "traefik.http.services.myapp.loadbalancer.healthcheck.timeout=75ms"
+        - "traefik.http.services.myapp.loadbalancer.healthcheck.scheme=http"
+      placement:
+        constraints:
+          - node.role == worker
       mode: replicated
       replicas: 5
       restart_policy:
@@ -32,6 +35,9 @@ services:
       update_config:
         parallelism: 3
         delay: 10s
+    entrypoint:
+      web:
+        address:
 
 networks:
   traefik-public:
