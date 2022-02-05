@@ -17,9 +17,8 @@ services:
       - "traefik.constraint-label=traefik-public"
       - "traefik.docker.network=traefik-public"
       - "traefik.enable=true"
-      - "traefik.constraint-label-stack=${TRAEFIK_TAG?Variable not set}"
-      - "traefik.http.routers.${STACK_NAME?Variable not set}-api.rule=Host(`simple-api.cluster.hiboux.me`)"
-      - "traefik.http.services.${STACK_NAME?Variable not set}-api.loadbalancer.server.port=5000"
+      - "traefik.http.routers.api_api.rule=Host(`simple-api.cluster.hiboux.me`)"
+      - "traefik.http.services.api_api.loadbalancer.server.port=5000"
     deploy:
       replicas: 5
       restart_policy:
