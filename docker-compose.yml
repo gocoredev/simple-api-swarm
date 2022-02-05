@@ -14,12 +14,17 @@ services:
       - traefik-public
       - backend
     labels:
-      - "traefik.constraint-label=traefik-public"
-      - "traefik.docker.network=traefik-public"
       - "traefik.enable=true"
-      - "traefik.http.routers.api_api.rule=Host(`simple-api.cluster.hiboux.me`)"
-      - "traefik.http.services.api_api.loadbalancer.server.port=5000"
+      - "traefik.http.routers.myapp.rule=Host(`simple-api.cluster.hiboux.me`)"
+      - "traefik.http.routers.myapp.tls.certresolver=le"
+      - "traefik.http.services.myapp.loadbalancer.server.port=80"
+      - "traefik.http.services.myapp.loadbalancer.passhostheader=true"
+      - "traefik.http.services.myapp.loadbalancer.healthcheck.path=/healthcheck"
+      - "traefik.http.services.myapp.loadbalancer.healthcheck.interval=100ms"
+      - "traefik.http.services.myapp.loadbalancer.healthcheck.timeout=75ms"
+      - "traefik.http.services.myapp.loadbalancer.healthcheck.scheme=http"
     deploy:
+      mode: replicated
       replicas: 5
       restart_policy:
         max_attempts: 3
