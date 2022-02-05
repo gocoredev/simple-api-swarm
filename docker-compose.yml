@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    image: hiboux/simple-api
+    image: gchavesvds/simple-api-swarm
     build:
       context: .
       dockerfile: Dockerfile
