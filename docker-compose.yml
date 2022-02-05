@@ -6,7 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     command: yarn start
-    image: hiboux/simple-api
     restart: unless-stopped
     ports:
       - 5000
