@@ -9,7 +9,7 @@ services:
     image: hiboux/simple-api
     restart: unless-stopped
     environment:
-      - NODE_ENV: true
+      - NODE_ENV: "true"
     ports:
       - 5000
     networks:
@@ -27,5 +27,3 @@ services:
       update_config:
         parallelism: 3
         delay: 10s
-    volumes:
-      - ./:/code
