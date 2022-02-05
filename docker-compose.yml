@@ -15,9 +15,11 @@ services:
       - backend
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`simple-api.cluster.hiboux.me`)"
-      - "traefik.http.routers.api.entrypoints=websecure"
-      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik-public-http.rule=Host(`simple-api.cluster.hiboux.me`)"
+      - "traefik.http.routers.traefik-public-https.rule=Host(`simple-api.cluster.hiboux.me`)"
+      - "traefik.http.routers.traefik-public-http.entrypoints=http"
+      - "traefik.http.routers.traefik-public-http.entrypoints=https"
+      - "traefik.http.routers.traefik-public-https.tls.certresolver=le"
     deploy:
       replicas: 5
       restart_policy:
