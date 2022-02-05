@@ -12,6 +12,7 @@ services:
       - 5000
     networks:
       - traefik-public
+      - backend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.simple-fe.rule=Host(`simple-api.cluster.hiboux.me`)"
@@ -25,3 +26,7 @@ services:
       update_config:
         parallelism: 3
         delay: 10s
+
+networks:
+  traefik-public:
+  backend:
