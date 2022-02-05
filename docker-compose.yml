@@ -35,9 +35,6 @@ services:
       update_config:
         parallelism: 3
         delay: 10s
-    entrypoint:
-      web:
-        address:
 
 networks:
   traefik-public:
