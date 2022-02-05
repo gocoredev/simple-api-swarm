@@ -9,7 +9,7 @@ services:
     image: hiboux/simple-api
     restart: unless-stopped
     environment:
-      - NODE_ENV: "true"
+      - "NODE_ENV": "true"
     ports:
       - 5000
     networks:
